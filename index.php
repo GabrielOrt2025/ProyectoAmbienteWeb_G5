@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
   <!-- es un header que es donde esta arriba de la pagina(tipo para selecionar el innicio etc) -->
@@ -42,6 +44,10 @@
             <div class="card-body">
               <h5 class="card-title">Chaqueta de cuero napa</h5>
               <p>$20</p>
+              <div class="buttons">
+                <button class="button is-warning is-dark">Editar Elemento</button>
+                <button class="button is-danger is-dark">Eliminar</button>
+              </div>
             </div>
           </div>
         </div>
@@ -52,6 +58,10 @@
             <div class="card-body">
               <h5 class="card-title">Cardigan roja</h5>
               <p>$30</p>
+              <div class="buttons">
+                <button class="button is-warning is-dark">Editar Elemento</button>
+                <button class="button is-danger is-dark">Eliminar</button>
+              </div>
             </div>
           </div>
         </div>
@@ -62,6 +72,10 @@
             <div class="card-body">
               <h5 class="card-title">Velcro black pants</h5>
               <p>$25</p>
+              <div class="buttons">
+                <button class="button is-warning is-dark">Editar Elemento</button>
+                <button class="button is-danger is-dark">Eliminar</button>
+              </div>
             </div>
           </div>
         </div>
@@ -72,6 +86,10 @@
             <div class="card-body">
               <h5 class="card-title">Pantalon de lana y algodon</h5>
               <p>$15</p>
+              <div class="buttons">
+                <button class="button is-warning is-dark">Editar Elemento</button>
+                <button class="button is-danger is-dark">Eliminar</button>
+              </div>
             </div>
           </div>
         </div>
@@ -97,6 +115,6 @@
     <p>2025 LA VACA</p>
   </footer>
 
-  
+<script src="js/accesibilidad.js"></script>
 </body>
 </html>

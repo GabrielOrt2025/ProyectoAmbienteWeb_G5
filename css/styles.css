@@ -3,7 +3,6 @@ body {
   background: #f7f7f7;
   margin: 0;
   color: #111;
-  background-image: url("../img/vaca.png"); /*esto es para que lo de la vaca salga de fondo*/
   background-size: 400px 400px;
   background-repeat: repeat;
   background-attachment: fixed;
@@ -44,6 +43,31 @@ header {
   position: relative;
   background-color: #000;
   padding: 20px 0;
+}
+
+
+.heroc{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #000;
+  padding: 80px 0;
+}
+
+.heroc img {
+    width: 300px;           
+    margin: 0 40px;         
+    transform: translateX(280px); 
+    transition: transform 0.3s ease;
+}
+
+.heroc .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    text-align: left;
 }
 
 .hero img {
@@ -120,6 +144,23 @@ header {
   margin-top: 15px;
 }
 
+.hero img {
+  margin: 30px; 
+}
+
+
+
+.hero img {
+  margin: 10px; 
+}
+
+
+.hero img {
+  position: relative;
+  left: 180px; 
+}
+
+
 /* CATEGORIES */
 .categorias {
   background: #fff;
@@ -145,6 +186,104 @@ header {
   padding: 15px;
   border-bottom: 1px solid #ddd;
   font-weight: 500;
+}
+
+
+
+.catalogo {
+    padding: 60px 80px;
+}
+
+.catalogo .row {
+    justify-content: center;
+}
+
+
+.filtros {
+    background-color: #fff;
+    padding: 40px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.filtros h5 {
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.filter-buttons .btn {
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.filter-buttons .btn:hover,
+.filter-buttons .btn.active {
+    background-color: #000;
+    color: #fff;
+}
+
+
+.producto {
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 25px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+
+.producto:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+
+.producto img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+
+.producto h6 {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+
+.precio {
+    color: #777;
+    font-size: 0.95rem;
+}
+
+
+@media (min-width: 992px) {
+    .catalogo .col-md-3 {
+        flex: 0 0 30%;
+        max-width: 30%;
+        margin: 1.5%;
+    }
+}
+
+
+@media (max-width: 991px) and (min-width: 576px) {
+    .catalogo .col-md-3 {
+        flex: 0 0 45%;
+        max-width: 45%;
+        margin: 2%;
+    }
+}
+
+
+@media (max-width: 575px) {
+    .catalogo .col-md-3 {
+        flex: 0 0 90%;
+        max-width: 90%;
+        margin: 5% auto;
+    }
 }
 footer {
   background: #f7f7f7;
