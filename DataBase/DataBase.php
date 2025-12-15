@@ -2,7 +2,7 @@
 
 $servidor = "localhost";
 $usuario = "root";
-$password = "pene123";
+$password = "";
 $base_datos = "lavaca_shop";
 
 
@@ -15,6 +15,4 @@ if (!$conexion) {
 
 
 mysqli_set_charset($conexion, "utf8");
-
- echo "Conexión exitosa";
 ?>

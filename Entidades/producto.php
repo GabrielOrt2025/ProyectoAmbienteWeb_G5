@@ -1,5 +1,5 @@
 <?php
-class producto {
+class Producto {
     public $id_producto;
     public $nombre;
     public $descripcion;
@@ -19,4 +19,5 @@ class producto {
         $this->stock = $stock;
         $this->imagen = $imagen;
     }
+
 }
