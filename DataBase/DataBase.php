@@ -2,7 +2,7 @@
 
 $servidor = "localhost";
 $usuario = "root";
-$password = "";
+$password = "pene123";
 $base_datos = "lavaca_shop";
 
 

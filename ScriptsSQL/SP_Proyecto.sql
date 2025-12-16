@@ -365,6 +365,24 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER $$
+
+CREATE PROCEDURE leer_productos()
+BEGIN
+    SELECT 
+        id_producto,
+        nombre,
+        descripcion,
+        precio,
+        precio_descuento,
+        id_categoria,
+        stock,
+        imagen
+    FROM producto;
+END$$
+
+DELIMITER ;
+
 
 
 

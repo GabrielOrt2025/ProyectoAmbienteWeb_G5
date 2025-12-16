@@ -19,5 +19,5 @@ class Producto {
         $this->stock = $stock;
         $this->imagen = $imagen;
     }
-
 }
+?>

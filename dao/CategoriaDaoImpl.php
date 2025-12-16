@@ -1,70 +1,100 @@
 <?php
-require_once 'CategoriaDao.php';
-require_once '../Entidades/categoria.php';
+require_once __DIR__ . '/../DataBase/DataBase.php';
+require_once __DIR__ . '/CategoriaDao.php';
+require_once __DIR__ . '/../Entidades/categoria.php';
 
 class CategoriaDaoImpl implements CategoriaDAO {
     private $conexion;
 
-    public function __construct($conexion) {
+    public function __construct() {
+        global $conexion;
         $this->conexion = $conexion;
     }
 
-    public function obtenerPorId($id_categoria) {
-        $sql = "CALL leer_categorias()";
-        $result = $this->conexion->query($sql);
+    public function obtenerTodas() {
+        $query = "CALL leer_categorias()";
+        $stmt = mysqli_prepare($this->conexion, $query);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
         
-        if ($result && $result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                if($row['id_categoria'] == $id_categoria) {
-                    return new categoria(
-                        $row['id_categoria'],
-                        $row['nombre'],
-                        $row['descripcion'],
-                        $row['imagen']
-                    );
-                }
-            }
+        $categorias = [];
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $categorias[] = new categoria(
+                $fila['id_categoria'],
+                $fila['nombre'],
+                $fila['descripcion'],
+                $fila['imagen']
+            );
+        }
+        
+        mysqli_free_result($resultado);
+        mysqli_stmt_close($stmt);
+        mysqli_next_result($this->conexion);
+        
+        return $categorias;
+    }
+
+    public function obtenerPorId($id_categoria) {
+        $query = "SELECT * FROM categorias WHERE id_categoria = ?";
+        $stmt = mysqli_prepare($this->conexion, $query);
+        mysqli_stmt_bind_param($stmt, "i", $id_categoria);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            return new categoria(
+                $fila['id_categoria'],
+                $fila['nombre'],
+                $fila['descripcion'],
+                $fila['imagen']
+            );
         }
         return null;
     }
 
-    public function insertar(categoria $categoria) {
-        $stmt = $this->conexion->prepare("CALL crear_categoria(?, ?, ?)");
+    public function insertar($categoria) {
+        $query = "CALL crear_categoria(?, ?, ?)";
+        $stmt = mysqli_prepare($this->conexion, $query);
         
         $nombre = $categoria->nombre;
         $descripcion = $categoria->descripcion;
         $imagen = $categoria->imagen;
         
-        $stmt->bind_param("sss", $nombre, $descripcion, $imagen);
+        mysqli_stmt_bind_param($stmt, "sss", $nombre, $descripcion, $imagen);
         
-        $resultado = $stmt->execute();
-        $stmt->close();
+        $resultado = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_next_result($this->conexion);
         
         return $resultado;
     }
 
-    public function actualizar(categoria $categoria) {
-        $stmt = $this->conexion->prepare("CALL actualizar_categoria(?, ?, ?, ?)");
+    public function actualizar($categoria) {
+        $query = "CALL actualizar_categoria(?, ?, ?, ?)";
+        $stmt = mysqli_prepare($this->conexion, $query);
         
         $id = $categoria->id_categoria;
         $nombre = $categoria->nombre;
         $descripcion = $categoria->descripcion;
         $imagen = $categoria->imagen;
         
-        $stmt->bind_param("isss", $id, $nombre, $descripcion, $imagen);
+        mysqli_stmt_bind_param($stmt, "isss", $id, $nombre, $descripcion, $imagen);
         
-        $resultado = $stmt->execute();
-        $stmt->close();
+        $resultado = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_next_result($this->conexion);
         
         return $resultado;
     }
 
     public function eliminar($id_categoria) {
-        $stmt = $this->conexion->prepare("CALL eliminar_categoria(?)");
-        $stmt->bind_param("i", $id_categoria);
+        $query = "CALL eliminar_categoria(?)";
+        $stmt = mysqli_prepare($this->conexion, $query);
+        mysqli_stmt_bind_param($stmt, "i", $id_categoria);
         
-        $resultado = $stmt->execute();
-        $stmt->close();
+        $resultado = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_next_result($this->conexion);
         
         return $resultado;
     }

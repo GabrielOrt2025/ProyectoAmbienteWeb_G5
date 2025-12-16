@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../DataBase/DataBase.php';
-require_once __DIR__ . '/CarritoDao';
+require_once __DIR__ . '/CarritoDao.php';
 require_once __DIR__ . '/../Entidades/carrito.php';
 
 class CarritoDaoImpl implements CarritoDAO {

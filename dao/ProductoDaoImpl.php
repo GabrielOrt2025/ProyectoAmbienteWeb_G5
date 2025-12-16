@@ -1,3 +1,4 @@
+
 <?php
 require_once __DIR__ . '/../DataBase/DataBase.php';
 require_once __DIR__ . '/ProductoDao.php';
@@ -33,6 +34,7 @@ class ProductoDaoImpl implements ProductoDao {
 
         $resultado = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
+        mysqli_next_result($this->conexion);
 
         return $resultado;
     }
@@ -48,17 +50,68 @@ class ProductoDaoImpl implements ProductoDao {
 
         while ($row = mysqli_fetch_assoc($result)) {
             $producto = new Producto(
+                $row['id_producto'],
                 $row['nombre'],
                 $row['descripcion'],
                 $row['precio'],
                 $row['precio_descuento'],
                 $row['id_categoria'],
                 $row['stock'],
-                $row['imagen'],
-                $row['id_producto']
+                $row['imagen']
+            );
+            $productos[] = $producto;
+        }
+        
+        mysqli_free_result($result);
+        mysqli_stmt_close($stmt);
+        mysqli_next_result($this->conexion);
+        
+        return $productos;
+    }
+
+    public function obtenerPorId($id_producto) {
+        $query = "SELECT * FROM productos WHERE id_producto = ?";
+        $stmt = mysqli_prepare($this->conexion, $query);
+        mysqli_stmt_bind_param($stmt, "i", $id_producto);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            return new Producto(
+                $fila['id_producto'],
+                $fila['nombre'],
+                $fila['descripcion'],
+                $fila['precio'],
+                $fila['precio_descuento'],
+                $fila['id_categoria'],
+                $fila['stock'],
+                $fila['imagen']
             );
         }
-        mysqli_stmt_close($stmt);
+        return null;
+    }
+
+    public function obtenerPorCategoria($id_categoria) {
+        $query = "SELECT * FROM productos WHERE id_categoria = ?";
+        $stmt = mysqli_prepare($this->conexion, $query);
+        mysqli_stmt_bind_param($stmt, "i", $id_categoria);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        
+        $productos = [];
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $productos[] = new Producto(
+                $fila['id_producto'],
+                $fila['nombre'],
+                $fila['descripcion'],
+                $fila['precio'],
+                $fila['precio_descuento'],
+                $fila['id_categoria'],
+                $fila['stock'],
+                $fila['imagen']
+            );
+        }
+        
         return $productos;
     }
 
@@ -85,6 +138,7 @@ class ProductoDaoImpl implements ProductoDao {
 
         $resultado = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
+        mysqli_next_result($this->conexion);
 
         return $resultado;
     }
@@ -97,10 +151,9 @@ class ProductoDaoImpl implements ProductoDao {
 
         $resultado = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
+        mysqli_next_result($this->conexion);
 
         return $resultado;
     }
-
-
-
 }
+?>
