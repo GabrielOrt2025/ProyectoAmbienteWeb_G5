@@ -61,7 +61,7 @@ $items = $carritoDao->obtenerCarritoCompleto($_SESSION['usuario_id']);
                             <span class="quantity"><?php echo $item['cantidad']; ?></span>
                             <button class="quantity-btn increase">+</button>
                         </div>
-                        <div class="item-price">€<?php echo number_format($item['subtotal'], 2); ?></div>
+                        <div class="item-price">₡<?php echo number_format($item['subtotal'], 2); ?></div>
                         <button class="remove-btn">×</button>
                     </div>
                     <?php endforeach; ?>
@@ -79,15 +79,15 @@ $items = $carritoDao->obtenerCarritoCompleto($_SESSION['usuario_id']);
             
             <div class="summary-row">
                 <span class="summary-label">Items <span id="summaryItemCount"><?php echo count($items); ?></span></span>
-                <span class="summary-value" id="subtotal">€0.00</span>
+                <span class="summary-value" id="subtotal">₡0.00</span>
             </div>
 
             <div class="shipping-section">
                 <div class="summary-label" style="margin-bottom: 15px;">SHIPPING</div>
                 <select class="shipping-select" id="shippingSelect">
-                    <option value="5">Standard Delivery - €5.00</option>
-                    <option value="10">Express Delivery - €10.00</option>
-                    <option value="15">Next Day Delivery - €15.00</option>
+                    <option value="2500">Standard Delivery - ₡2,500.00</option>
+                    <option value="5000">Express Delivery - ₡5,000.00</option>
+                    <option value="7500">Next Day Delivery - ₡7,500.00</option>
                 </select>
             </div>
 
@@ -103,7 +103,7 @@ $items = $carritoDao->obtenerCarritoCompleto($_SESSION['usuario_id']);
             <div class="total-section">
                 <div class="total-row">
                     <span>TOTAL PRICE</span>
-                    <span id="totalPrice">€0.00</span>
+                    <span id="totalPrice">₡0.00</span>
                 </div>
             </div>
 
@@ -111,6 +111,6 @@ $items = $carritoDao->obtenerCarritoCompleto($_SESSION['usuario_id']);
         </div>
     </div>
     
-    <script src="js/carrito_dinamico.js"></script>
+    <script src="js/carrito.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ $productosDestacados = array_slice($productos, 0, 4);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +19,7 @@ $productosDestacados = array_slice($productos, 0, 4);
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
   <header>
@@ -49,39 +51,39 @@ $productosDestacados = array_slice($productos, 0, 4);
     <div class="container">
       <div class="row justify-content-center">
         <?php foreach ($productosDestacados as $producto): ?>
-        <div class="col-md-3 col-sm-6 mb-4">
-          <div class="card">
-            <img src="<?php echo htmlspecialchars($producto->imagen); ?>" 
-                 alt="<?php echo htmlspecialchars($producto->nombre); ?>">
-            <div class="card-body">
-              <h5 class="card-title"><?php echo htmlspecialchars($producto->nombre); ?></h5>
-              <p class="precio">
-                <?php if ($producto->precio_descuento > 0): ?>
-                  <span style="text-decoration: line-through; color: #999;">€<?php echo number_format($producto->precio, 2); ?></span>
-                  <span style="color: #e74c3c; font-weight: bold;">€<?php echo number_format($producto->precio_descuento, 2); ?></span>
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card">
+              <img src="<?php echo htmlspecialchars($producto->imagen); ?>"
+                alt="<?php echo htmlspecialchars($producto->nombre); ?>">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo htmlspecialchars($producto->nombre); ?></h5>
+                <p class="precio">
+                  <?php if ($producto->precio_descuento > 0): ?>
+                    <span style="text-decoration: line-through; color: #999;">₡<?php echo number_format($producto->precio, 3, '.', ','); ?></span>
+                    <span style="color: #e74c3c; font-weight: bold;">₡<?php echo number_format($producto->precio_descuento, 3, '.', ','); ?></span>
+                  <?php else: ?>
+                    ₡<?php echo number_format($producto->precio, 3, '.', ','); ?>
+                  <?php endif; ?>
+                </p>
+
+                <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin'): ?>
+                  <div class="buttons">
+                    <button class="btn btn-warning btn-sm" onclick="editarProducto(<?php echo $producto->id_producto; ?>)">
+                      Editar
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarProducto(<?php echo $producto->id_producto; ?>)">
+                      Eliminar
+                    </button>
+                  </div>
                 <?php else: ?>
-                  €<?php echo number_format($producto->precio, 2); ?>
+                  <button class="btn btn-dark btn-sm w-100"
+                    onclick="agregarAlCarrito(<?php echo $producto->id_producto; ?>)">
+                    Agregar al Carrito
+                  </button>
                 <?php endif; ?>
-              </p>
-              
-              <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin'): ?>
-              <div class="buttons">
-                <button class="btn btn-warning btn-sm" onclick="editarProducto(<?php echo $producto->id_producto; ?>)">
-                  Editar
-                </button>
-                <button class="btn btn-danger btn-sm" onclick="eliminarProducto(<?php echo $producto->id_producto; ?>)">
-                  Eliminar
-                </button>
               </div>
-              <?php else: ?>
-              <button class="btn btn-dark btn-sm w-100" 
-                      onclick="agregarAlCarrito(<?php echo $producto->id_producto; ?>)">
-                Agregar al Carrito
-              </button>
-              <?php endif; ?>
             </div>
           </div>
-        </div>
         <?php endforeach; ?>
       </div>
     </div>
@@ -103,47 +105,48 @@ $productosDestacados = array_slice($productos, 0, 4);
     <p>2025 LA VACA</p>
   </footer>
 
-<script>
-function agregarAlCarrito(idProducto) {
-    <?php if (!isset($_SESSION['usuario_id'])): ?>
+  <script>
+    function agregarAlCarrito(idProducto) {
+      <?php if (!isset($_SESSION['usuario_id'])): ?>
         alert('Debes iniciar sesión para agregar productos al carrito');
         window.location.href = 'login.php';
         return;
-    <?php endif; ?>
-    
-    fetch('api/agregar_carrito.php', {
-        method: 'POST',
-        headers: {
+      <?php endif; ?>
+
+      fetch('api/agregarCarrito.php', {
+          method: 'POST',
+          headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+          },
+          body: JSON.stringify({
             id_producto: idProducto,
             cantidad: 1
+          })
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
             alert('Producto agregado al carrito');
-        } else {
+          } else {
             alert('Error: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error al agregar al carrito');
-    });
-}
-
-function eliminarProducto(idProducto) {
-    if (confirm('¿Estás seguro de eliminar este producto?')) {
-        window.location.href = 'api/eliminar_producto.php?id=' + idProducto;
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error al agregar al carrito');
+        });
     }
-}
 
-function editarProducto(idProducto) {
-    window.location.href = 'admin/editar_producto.php?id=' + idProducto;
-}
-</script>
+    function eliminarProducto(idProducto) {
+      if (confirm('¿Estás seguro de eliminar este producto?')) {
+        window.location.href = 'api/eliminar_producto.php?id=' + idProducto;
+      }
+    }
+
+    function editarProducto(idProducto) {
+      window.location.href = 'admin/editar_producto.php?id=' + idProducto;
+    }
+  </script>
 </body>
+
 </html>
