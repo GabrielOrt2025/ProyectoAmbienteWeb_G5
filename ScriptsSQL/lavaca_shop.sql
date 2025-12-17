@@ -38,8 +38,8 @@ CREATE TABLE productos (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(200) NOT NULL,
     descripcion TEXT,
-    precio DECIMAL(10, 2) NOT NULL,
-    precio_descuento DECIMAL(10, 2),
+    precio DECIMAL(10, 3) NOT NULL,
+    precio_descuento DECIMAL(10, 3),
     id_categoria INT,
     stock INT DEFAULT 0,
     imagen VARCHAR(255),
@@ -55,7 +55,7 @@ CREATE TABLE carrito (
     id_usuario INT,
     id_producto INT,
     cantidad INT DEFAULT 1,
-    precio_unitario DECIMAL(10, 2),
+    precio_unitario DECIMAL(10, 3),
     fecha_agregado DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
@@ -83,10 +83,10 @@ CREATE TABLE pedidos (
     numero_pedido VARCHAR(50) NOT NULL,
     id_usuario INT,
     id_direccion INT,
-    subtotal DECIMAL(10, 2) NOT NULL,
-    descuento DECIMAL(10, 2) DEFAULT 0,
-    costo_envio DECIMAL(10, 2) DEFAULT 0,
-    total DECIMAL(10, 2) NOT NULL,
+    subtotal DECIMAL(10, 3) NOT NULL,
+    descuento DECIMAL(10, 3) DEFAULT 0,
+    costo_envio DECIMAL(10, 3) DEFAULT 0,
+    total DECIMAL(10, 3) NOT NULL,
     metodo_pago VARCHAR(50),
     estado VARCHAR(50) DEFAULT 'pendiente',
     fecha_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -103,8 +103,8 @@ CREATE TABLE detalle_pedido (
     id_producto INT,
     nombre_producto VARCHAR(200),
     cantidad INT NOT NULL,
-    precio_unitario DECIMAL(10, 2) NOT NULL,
-    subtotal DECIMAL(10, 2) NOT NULL,
+    precio_unitario DECIMAL(10, 3) NOT NULL,
+    subtotal DECIMAL(10, 3) NOT NULL,
     FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
@@ -115,7 +115,7 @@ CREATE TABLE detalle_pedido (
 CREATE TABLE codigos_descuento (
     id_codigo INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(50) NOT NULL UNIQUE,
-    descuento DECIMAL(10, 2) NOT NULL,
+    descuento DECIMAL(10, 3) NOT NULL,
     fecha_expiracion DATE,
     activo VARCHAR(10) DEFAULT 'si'
 );
@@ -133,21 +133,39 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 
 -- Insertar productos
 INSERT INTO productos (nombre, descripcion, precio, id_categoria, stock, imagen) VALUES
-('Leather Belt', 'Cinturón de cuero genuino', 95.00, 4, 50, 'img/imagen.png'),
-('Smartphone Case', 'Funda protectora', 55.00, 4, 100, 'img/imagen1.png'),
-('Leather Gloves', 'Guantes de cuero', 120.00, 4, 30, 'img/imagen2.png'),
-('Black Duffel', 'Bolsa deportiva', 420.00, 3, 20, 'img/imagen3.png'),
-('Chaqueta de cuero napa', 'Chaqueta de cuero', 20.00, 1, 15, 'img/imagen.png'),
-('Cardigan roja', 'Cardigan de lana', 30.00, 1, 40, 'img/imagen1.png'),
-('Velcro black pants', 'Pantalones negros', 25.00, 1, 60, 'img/imagen2.png'),
-('Pantalon de lana', 'Pantalón cómodo', 15.00, 1, 80, 'img/imagen3.png'),
-('Cotton T-shirt', 'Camiseta de algodón', 44.00, 1, 100, 'img/shirt.png');
+-- ROPA (categoria 1)
+('Chaqueta marrón', 'Chaqueta de cuero', 89.000, 1, 15, 'img/imagen.png'),
+('Chaqueta roja', 'Chaqueta deportiva', 75.000, 1, 20, 'img/imagen1.png'),
+('Abrigo negro', 'Abrigo elegante', 120.000, 1, 10, 'img/imagen2.png'),
+('Pantalones azules', 'Pantalones cómodos', 65.000, 1, 25, 'img/imagen3.png'),
+('Pantalones grises', 'Pantalones casuales', 55.000, 1, 30, 'img/imagen4.jpeg'),
+('Pantalones negros', 'Pantalones formales', 70.000, 1, 20, 'img/imagen5.jpeg'),
+('Traje completo', 'Traje de hombre', 250.000, 1, 5, 'img/imagen6.jpeg'),
+('Conjunto formal', 'Conjunto formal', 180.000, 1, 8, 'img/imagen7.jpeg'),
+('Outfit casual', 'Conjunto casual', 95.000, 1, 15, 'img/imagen8.jpeg'),
+-- ZAPATOS (categoria 2)
+('Zapatos rojos', 'Zapatos elegantes', 120.000, 2, 12, 'img/zapatos.jpeg'),
+('Zapatos blancos', 'Zapatos deportivos', 85.000, 2, 25, 'img/zapatos1.jpeg'),
+('Zapatos negros', 'Zapatos formales', 110.000, 2, 15, 'img/zapatos2.jpeg'),
+-- BOLSAS (categoria 3)
+('Bolso marrón', 'Bolso de cuero', 95.000, 3, 18, 'img/bolsos.jpeg'),
+('Bolso beige', 'Bolso elegante', 105.000, 3, 12, 'img/bolsos1.jpeg'),
+('Bolso borgoña', 'Bolso deportivo', 85.000, 3, 20, 'img/bolso2.jpeg'),
+-- ACCESORIOS (categoria 4)
+('Aretes dorados', 'Aretes de lujo', 45.000, 4, 30, 'img/accesorios.jpeg'),
+('Gafas de sol', 'Gafas protectoras', 95.000, 4, 25, 'img/accesorios1.jpeg'),
+('Cinturón dorado', 'Cinturón elegante', 65.000, 4, 35, 'img/accesorios2.jpeg'),
+('Collar de perlas', 'Collar clásico', 150.000, 4, 15, 'img/accesorios3.jpeg'),
+('Reloj de oro', 'Reloj lujoso', 450.000, 4, 8, 'img/accesorios4.jpeg'),
+('Guantes de cuero', 'Guantes premium', 120.000, 4, 20, 'img/accesorios5.jpeg');
+
+
 
 -- Insertar códigos de descuento
 INSERT INTO codigos_descuento (codigo, descuento, fecha_expiracion) VALUES
-('SAVE10', 10.00, '2025-12-31'),
-('SAVE20', 20.00, '2025-12-31'),
-('WELCOME15', 15.00, '2025-12-31');
+('SAVE10', 10.000, '2025-12-31'),
+('SAVE20', 20.000, '2025-12-31'),
+('WELCOME15', 15.000, '2025-12-31');
 
 -- Insertar usuario administrador
 -- Contraseña: admin123

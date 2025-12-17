@@ -73,6 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/editar_producto.css">
     <style>
         body {
             font-family: "Poppins", sans-serif;
@@ -105,14 +107,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         .form-control:focus, .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #000000ff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
         }
         
         .btn-actualizar {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0a0a0aff 0%, #111111ff 100%);
             border: none;
             border-radius: 10px;
             color: white;
@@ -122,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         .btn-actualizar:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(2, 2, 2, 0.4);
         }
         
         .preview-imagen {
@@ -214,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             
             <button type="submit" class="btn-actualizar">
-                <i class="bi bi-check-circle"></i> Actualizar Producto
+                <i class="bi bi-check-circle"></i> Actualizar
             </button>
             
             <div class="text-center mt-4">

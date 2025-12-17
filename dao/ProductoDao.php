@@ -4,5 +4,6 @@ interface ProductoDAO {
     public function leerProductos();
     public function actualizarProducto(Producto $producto);
     public function eliminarProducto($id_producto);
+    
 }
 ?>

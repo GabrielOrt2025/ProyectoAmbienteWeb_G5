@@ -1,0 +1,85 @@
+body {
+            
+            background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .registro-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+            padding: 60px 40px;
+        }
+        
+        .registro-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-label {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: #0f0f0f;
+            box-shadow: 0 0 0 0.2rem rgba(117, 120, 129, 0.25);
+        }
+        
+        .btn-registro {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #0c0c0c 0%, #0c0c0c 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            transition: transform 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn-registro:hover {
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            border-radius: 10px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .text-center p {
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .text-center a {
+            color: #111111;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        small.text-muted {
+            color: #6c757d !important;
+            font-size: 0.85rem;
+        }

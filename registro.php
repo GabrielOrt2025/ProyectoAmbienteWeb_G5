@@ -57,58 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>LA VACA | Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: "Poppins", sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-        
-        .registro-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-        
-        .registro-container h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .form-control {
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 1px solid #e0e0e0;
-            margin-bottom: 15px;
-        }
-        
-        .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-        }
-        
-        .btn-registro {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            margin-top: 20px;
-        }
-        
-        .btn-registro:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/registro.css">
 </head>
 <body>
     <div class="registro-container">
@@ -169,8 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn-registro">Registrarse</button>
             
             <div class="text-center mt-4">
-                <p>¿Ya tienes cuenta? <a href="login.php" style="color: #667eea;">Inicia Sesión</a></p>
-                <a href="index.php" style="color: #999; text-decoration: none;">← Volver a la tienda</a>
+                <p>¿Ya tienes cuenta? <a href="login.php">Inicia Sesión</a></p>
+                <a href="index.php" style="color: #999;">← Volver a la tienda</a>
             </div>
         </form>
     </div>

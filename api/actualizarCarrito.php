@@ -11,21 +11,27 @@ require_once __DIR__ . '/../dao/CarritoDaoImpl.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($data['id_carrito'])) {
-    echo json_encode(['success' => false, 'message' => 'ID de carrito no especificado']);
+if (!isset($data['id_carrito']) || !isset($data['cantidad'])) {
+    echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
     exit();
 }
 
 $id_carrito = intval($data['id_carrito']);
+$cantidad = intval($data['cantidad']);
+
+if ($cantidad < 1) {
+    echo json_encode(['success' => false, 'message' => 'Cantidad inválida']);
+    exit();
+}
 
 try {
     $carritoDao = new CarritoDaoImpl();
-    $resultado = $carritoDao->eliminar($id_carrito);
+    $resultado = $carritoDao->actualizarCantidad($id_carrito, $cantidad);
     
     if ($resultado) {
-        echo json_encode(['success' => true, 'message' => 'Producto eliminado del carrito']);
+        echo json_encode(['success' => true, 'message' => 'Cantidad actualizada']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error al eliminar del carrito']);
+        echo json_encode(['success' => false, 'message' => 'Error al actualizar cantidad']);
     }
     
 } catch (Exception $e) {

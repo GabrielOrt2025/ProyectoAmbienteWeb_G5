@@ -1,6 +1,6 @@
 let cart = {
     items: [],
-    shipping: 5,
+    shipping: 2500, 
     discount: 0,
     promoCode: null
 };
@@ -10,6 +10,14 @@ const promoCodes = {
     'SAVE20': 20,
     'WELCOME15': 15
 };
+
+// Función para formatear números como colones
+function formatCurrency(amount) {
+    return '₡' + amount.toLocaleString('es-CR', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+}
 
 function initCart() {
     const items = document.querySelectorAll('.cart-item');
@@ -61,14 +69,6 @@ function setupEventListeners() {
     document.getElementById('promoInput').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') applyPromoCode();
     });
-
-    // document.getElementById('checkoutBtn').addEventListener('click', () => {
-    //     if (cart.items.length === 0) {
-    //         alert('Tu carrito está vacío');
-    //         return;
-    //     }
-    //     alert(`Procesando pago de €${calculateTotal().toFixed(2)}`);
-    // });
 }
 
 function updateQuantity(itemElement, change) {
@@ -88,7 +88,7 @@ function updateQuantity(itemElement, change) {
     quantitySpan.textContent = cartItem.quantity;
 
     const itemPrice = itemElement.querySelector('.item-price');
-    itemPrice.textContent = `€${(cartItem.price * cartItem.quantity).toFixed(2)}`;
+    itemPrice.textContent = formatCurrency(cartItem.price * cartItem.quantity);
 
     updateCart();
 }
@@ -115,7 +115,7 @@ function checkEmptyCart() {
             <div class="empty-cart">
                 <div class="empty-cart-icon">🛒</div>
                 <div class="empty-cart-text">Tu carrito está vacío</div>
-                <a href="#" class="back-link" style="display: inline-flex; margin-top: 20px;">
+                <a href="index.php" class="back-link" style="display: inline-flex; margin-top: 20px;">
                     <span>←</span>
                     Volver a la tienda
                 </a>
@@ -174,9 +174,9 @@ function updateCart() {
     document.getElementById('itemCount').textContent = itemCount;
     document.getElementById('summaryItemCount').textContent = itemCount;
 
-    document.getElementById('subtotal').textContent = `€${subtotal.toFixed(2)}`;
+    document.getElementById('subtotal').textContent = formatCurrency(subtotal);
 
-    document.getElementById('totalPrice').textContent = `€${total.toFixed(2)}`;
+    document.getElementById('totalPrice').textContent = formatCurrency(total);
 
     if (cart.discount > 0) {
         let discountRow = document.querySelector('.discount-row');
@@ -191,7 +191,7 @@ function updateCart() {
         }
         discountRow.innerHTML = `
             <span class="summary-label">Descuento (${cart.discount}%)</span>
-            <span class="summary-value">-€${discount.toFixed(2)}</span>
+            <span class="summary-value">-${formatCurrency(discount)}</span>
         `;
     }
 }
